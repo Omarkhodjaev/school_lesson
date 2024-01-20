@@ -9,6 +9,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use("/api", module.router);
 
+
 app.listen(config.port, () => {
   console.log(`http://localhost:${config.port}`);
 });
