@@ -4,3 +4,8 @@ export const roles = {
   TEACHER: "teacher",
   PARENT: "parent",
 };
+
+export const sex = {
+  MALE: "male",
+  FEMALE: "female",
+};

@@ -5,3 +5,19 @@ export class UserNotFoundException extends Error {
     this.statusCode = 404;
   }
 }
+
+export class UserLoginAlreadyExistException extends Error {
+  constructor() {
+    super("user login already exist");
+
+    this.statusCode = 400;
+  }
+}
+
+export class UserNotCreatedException extends Error {
+  constructor() {
+    super("user not created");
+
+    this.statusCode = 500;
+  }
+}

@@ -27,6 +27,7 @@ create TABLE schools
     (brand_id) references brands
     (id)
 );
+
     create TABLE users
     (
         id serial PRIMARY KEY,

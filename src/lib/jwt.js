@@ -3,7 +3,10 @@ import jwt from "jsonwebtoken";
 import { config } from "../common/config/index.js";
 
 export const generateToken = (data) => {
-  const token = jwt.sign({ data, exp: config.jwtExpiredIn }, config.jwtKey);
+  const token = jwt.sign(
+    { data, exp: Math.floor(Date.now() / 1000) + 200000 },
+    config.jwtKey
+  );
   return token;
 };
 
