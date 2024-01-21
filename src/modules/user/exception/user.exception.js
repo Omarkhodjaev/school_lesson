@@ -21,3 +21,11 @@ export class UserNotCreatedException extends Error {
     this.statusCode = 500;
   }
 }
+
+export class LoginOrPassWrongException extends Error {
+  constructor() {
+    super("Login or password wrong please try again!");
+
+    this.statusCode = 500;
+  }
+}

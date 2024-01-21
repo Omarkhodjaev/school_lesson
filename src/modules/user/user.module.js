@@ -26,6 +26,10 @@ router.get(
   }
 );
 
+router.post("/login", (req, res) => {
+  userController.login(req, res);
+});
+
 router.get(
   "/:id",
   authorizationMiddleware.checkToken,

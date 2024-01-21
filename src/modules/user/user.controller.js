@@ -1,7 +1,10 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
 import { UserLoginAlreadyExistException } from "./exception/user.exception.js";
-import { userRegisterSchema } from "./validation/user.schema.js";
+import {
+  userRegisterSchema,
+  userLoginSchema,
+} from "./validation/user.schema.js";
 
 export class UserController {
   #userService;
@@ -75,4 +78,23 @@ export class UserController {
     }
   }
 
+  async login(req, res) {
+    try {
+      const dto = req.body;
+
+      validationSchema(userLoginSchema, dto);
+
+      const resData = await this.#userService.login(dto);
+
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(
+        error.message,
+        error.statusCode || 500,
+        null,
+        error
+      );
+      res.status(resData.statusCode).json(resData);
+    }
+  }
 }

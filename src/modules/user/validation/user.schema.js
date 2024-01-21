@@ -21,3 +21,8 @@ export const userRegisterSchema = Joi.object({
   brandId: Joi.number().integer().min(1).required(),
   repeatPassword: Joi.ref("password"),
 });
+
+export const userLoginSchema = Joi.object({
+  login: Joi.string().max(32).min(4).required(),
+  password: Joi.string().max(32).min(4).required(),
+});
