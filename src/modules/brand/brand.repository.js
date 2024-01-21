@@ -15,6 +15,10 @@ export class BrandRepository extends Postgres {
     return await this.fetch("SELECT * from brands where id = $1", brandId);
   }
 
+  async findByName(brandName) {
+    return await this.fetch("SELECT * from brands where name = $1", brandName);
+  }
+
   async delete(brandId) {
     return await this.fetch(
       "DELETE FROM brands WHERE id = $1 returning *",

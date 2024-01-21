@@ -1,24 +1,24 @@
 import { ResData } from "../../common/resData.js";
-import { BrandBadRequest } from "./exception/brand.exception.js";
-import { BrandSchema } from "./validation/brand.validation.js";
+import { SchoolBadRequest } from "./exception/exception/school.exception.js";
+import { SchoolSchema } from "./validation/school.validaton.js";
 
-export class BrandController {
-  #brandService;
-  constructor(BrandService) {
-    this.#brandService = BrandService;
+export class SchoolController {
+  #schoolService;
+  constructor(SchoolService) {
+    this.#schoolService = SchoolService;
   }
 
-  async createBrand(req, res) {
+  async createSchool(req, res) {
     try {
       const dto = req.body;
 
-      const { value, error } = BrandSchema.validate(dto);
+      const { value, error } = SchoolSchema.validate(dto);
 
       if (error) {
-        throw new BrandBadRequest(error.message);
+        throw new SchoolBadRequest(error.message);
       }
 
-      const resData = await this.#brandService.create(value);
+      const resData = await this.#schoolService.create(value);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       if (error) {
@@ -28,9 +28,9 @@ export class BrandController {
     }
   }
 
-  async getAllBrand(req, res) {
+  async getAllSchool(req, res) {
     try {
-      const resData = await this.#brandService.getAll();
+      const resData = await this.#schoolService.getAll();
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -45,10 +45,10 @@ export class BrandController {
     }
   }
 
-  async getBrandById(req, res) {
+  async getSchoolById(req, res) {
     try {
-      const brandId = req.params.id;
-      const resData = await this.#brandService.getById(brandId);
+      const schoolId = req.params.id;
+      const resData = await this.#schoolService.getById(schoolId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -63,10 +63,10 @@ export class BrandController {
     }
   }
 
-  async deleteBrandById(req, res) {
+  async deleteSchoolById(req, res) {
     try {
-      const brandId = req.params.id;
-      const resData = await this.#brandService.delete(brandId);
+      const schoolId = req.params.id;
+      const resData = await this.#schoolService.delete(schoolId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

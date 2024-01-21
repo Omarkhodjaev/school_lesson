@@ -20,6 +20,7 @@ create TABLE schools
     latitude numeric default null,
     longitude numeric default null,
     phone int
+    []
     [] DEFAULT null,
     brand_id int not null,
     constraint fk_brand_id foreign key
