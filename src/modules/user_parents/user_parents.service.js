@@ -1,24 +1,25 @@
 import { ResData } from "../../common/resData.js";
-import { UserEntity } from "./entity/user.entity.js";
-import {
-  LoginOrPassWrongException,
-  UserNotCreatedException,
-  UserNotFoundException,
-} from "./exception/user.exception.js";
-import { UserRepository } from "./user.repository.js";
+
+import { UserParentsEntity } from "./entity/user_parents.entity.js";
 import { hashed, compare } from "../../lib/bcript.js";
 import { generateToken, verifyToken } from "../../lib/jwt.js";
+import { UserParentsRepository } from "./user_parents.repository.js";
+import { UserParentsNotCreatedException } from "./exception/user_parents.exception.js";
 
-export class UserService {
+export class UserParentsService {
   #repository;
   constructor() {
-    this.#repository = new UserRepository();
+    this.#repository = new UserParentsRepository();
   }
 
   async getAll() {
     const foundAll = await this.#repository.findAll();
 
-    const resData = new ResData("All users is gotten", 200, foundAll);
+    const resData = new ResData(
+      "All user and parents is gotten",
+      200,
+      foundAll
+    );
 
     return resData;
   }
@@ -35,23 +36,16 @@ export class UserService {
   }
 
   async create(dto) {
-    const hashedPassword = await hashed(dto.password);
+    const newUserParent = new UserParentsEntity(dto);
 
-    dto.password = hashedPassword;
+    const createdUserParents = await this.#repository.insert(newUserParent);
 
-    const newUser = new UserEntity(dto);
-
-    const createdUser = await this.#repository.insert(newUser);
-
-    if (!createdUser) {
-      throw new UserNotCreatedException();
+    if (!createdUserParents) {
+      throw new UserParentsNotCreatedException();
     }
 
-    const token = generateToken(createdUser.id);
-
     const resData = new ResData("success created", 201, {
-      user: createdUser,
-      token,
+      createdUserParents,
     });
 
     return resData;
