@@ -3,7 +3,7 @@ import { Postgres } from "../../lib/pg.js";
 export class UserParentsRepository extends Postgres {
   async findAll() {
     return await this.fetchAll(
-      "SELECT u.id as user_parent_id, row_to_json(u) as parent FROM user_parents up INNER JOIN users u ON up.parent_id = u.id"
+      "SELECT up.id, (SELECT JSONB_BUILD_OBJECT('id', u.id, 'login', u.login, 'role', u.role) from users u inner join user_parents up ON u.id = up.parent_id) as parent, (SELECT JSONB_BUILD_OBJECT('id', u.id, 'login', u.login, 'role', u.role) from users u inner join user_parents up on u.id = up.child_id) as child from user_parents up;"
     );
   }
 
