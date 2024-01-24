@@ -14,6 +14,11 @@ export class UserParentsParentOrStudentNotFoundException extends Error {
   }
 }
 
+export class UserParentsBadRequest extends Error {
+  constructor(){
+    super('Only parent and student has access!')
+  }
+}
 
 export class UserParentsNotCreatedException extends Error {
   constructor() {

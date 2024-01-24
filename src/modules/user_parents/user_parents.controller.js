@@ -1,6 +1,9 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
-import { UserParentsParentOrStudentNotFoundException } from "./exception/user_parents.exception.js";
+import {
+  UserParentsBadRequest,
+  UserParentsParentOrStudentNotFoundException,
+} from "./exception/user_parents.exception.js";
 
 import { userParentsSchema } from "./validation/user_parents.schema.js";
 
@@ -60,6 +63,11 @@ export class UserParentsController {
         throw new UserParentsParentOrStudentNotFoundException();
       }
 
+      if (!(foundStudent.role === "student") || foundParent.role !== "parent") {
+        console.log(1);
+        throw new UserParentsBadRequest();
+      }
+
       const resData = await this.#userService.create(dto);
 
       res.status(resData.statusCode).json(resData);
@@ -74,5 +82,4 @@ export class UserParentsController {
       res.status(resData.statusCode).json(resData);
     }
   }
-
 }
