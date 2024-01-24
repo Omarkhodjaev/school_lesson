@@ -4,6 +4,7 @@ import brand from "./brand/brand.module.js";
 import school from "./school/school.module.js";
 import userParents from "./user_parents/user_parents.module.js";
 import rooms from "./rooms/room.module.js";
+import subject from "./subject/subject.module.js";
 
 const router = Router();
 
@@ -12,5 +13,7 @@ router.use("/brand", brand.router);
 router.use("/school", school.router);
 router.use("/userparents", userParents.router);
 router.use("/room", rooms.router);
+router.use("/subject", subject.router);
+
 
 export default { router };
