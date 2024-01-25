@@ -38,7 +38,6 @@ create TABLE user_parents (
     constraint fk_child_id foreign key (child_id) references users(id),
     constraint fk_parent_id foreign key (parent_id) references users(id)
 );
-
 create TABLE rooms (
     id serial PRIMARY KEY,
     number int default null,
@@ -48,7 +47,6 @@ create TABLE rooms (
     school_id int not null,
     constraint fk_school_id foreign key (school_id) references schools(id)
 );
-
 create TABLE subjects (
     id serial PRIMARY KEY,
     name varchar(32) not null,
@@ -88,3 +86,25 @@ create TABLE lessons (
 );
 alter table users
 add constraint fk_group_id foreign key (group_id) references groups(id);
+-- users table
+CREATE INDEX idx_fk_brand_id_users ON users (brand_id);
+CREATE INDEX idx_fk_group_id_users ON users (group_id);
+-- user_parents table
+CREATE INDEX idx_fk_child_id_user_parents ON user_parents (child_id);
+CREATE INDEX idx_fk_parent_id_user_parents ON user_parents (parent_id);
+-- rooms table
+CREATE INDEX idx_fk_school_id_rooms ON rooms (school_id);
+-- subjects table
+CREATE INDEX idx_fk_brand_id_subjects ON subjects (brand_id);
+-- groups table
+CREATE INDEX idx_fk_brand_id_groups ON groups (brand_id);
+CREATE INDEX idx_fk_head_teacher_id_groups ON groups (head_teacher_id);
+CREATE INDEX idx_fk_room_id_groups ON groups (room_id);
+-- teacher_subjects table
+CREATE INDEX idx_fk_teacher_id_teacher_subjects ON teacher_subjects (teacher_id);
+CREATE INDEX idx_fk_subject_id_teacher_subjects ON teacher_subjects (subject_id);
+-- lessons table
+CREATE INDEX idx_fk_teacher_id_lessons ON lessons (teacher_id);
+CREATE INDEX idx_fk_group_id_lessons ON lessons (group_id);
+CREATE INDEX idx_fk_subject_id_lessons ON lessons (subject_id);
+CREATE INDEX idx_fk_room_id_lessons ON lessons (room_id);
